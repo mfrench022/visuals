@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap'); */
 
 :root {
 	--padding: 3rem;
@@ -29,6 +29,51 @@ html {
 	}
 }
 
+.hero-caption {
+	position: fixed;
+	bottom: 0;
+	color: var(--white);
+	width: 100%;
+	height: var(--padding);
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	padding-inline: var(--padding);
+
+	/* blur layer, faded out at the top so there's no hard edge */
+	&::before {
+		content: "";
+		position: absolute;
+		inset: auto 0 0 0;
+		height: 200%;
+		z-index: -1;
+		pointer-events: none;
+		backdrop-filter: blur(3px);
+		-webkit-backdrop-filter: blur(3px);
+		/* eased fade (vs. linear) avoids a visible band where the fade starts */
+		--fade: linear-gradient(to top,
+			black 0%,
+			black 35%,
+			rgb(0 0 0 / 0.85) 48%,
+			rgb(0 0 0 / 0.6) 60%,
+			rgb(0 0 0 / 0.35) 72%,
+			rgb(0 0 0 / 0.15) 84%,
+			rgb(0 0 0 / 0.04) 93%,
+			transparent 100%);
+		mask-image: var(--fade);
+		-webkit-mask-image: var(--fade);
+		background-color: #11111165;
+	}
+
+	p {
+		font-family: 'Libre Franklin', sans-serif;
+		font-size: var(--font-size1);
+		text-shadow: var(--text-shadow1);
+		font-weight: var(--font-weight1);
+		text-align: right;
+	}
+}
+
 nav {
 	position: fixed;
 	width: 100vw;
@@ -44,8 +89,8 @@ nav {
 		height: 200%;
 		z-index: -1;
 		pointer-events: none;
-		backdrop-filter: blur(4px);
-		-webkit-backdrop-filter: blur(4px);
+		backdrop-filter: blur(3px);
+		-webkit-backdrop-filter: blur(3px);
 		/* eased fade (vs. linear) avoids a visible band where the fade starts */
 		--fade: linear-gradient(to bottom,
 			black 0%,
@@ -132,7 +177,7 @@ header {
 		font-size: 100%;
 	}
 
-	nav {
+	nav, .hero-caption, header {
 		padding-inline: calc(var(--padding) / 2);
 	}
 
@@ -140,9 +185,7 @@ header {
 		width: 100vw;
 		right: 0;
 		top: 25%;
-		padding-inline: calc(var(--padding) / 2);
 	}
-
 }
 
 @media (width < 500px) {
@@ -151,11 +194,7 @@ header {
 		font-size: 90%;
 	}
 	
-	nav {
-		padding-inline: calc(var(--padding) / 3);
-	}
-
-	header {
+	nav, .hero-caption, header {
 		padding-inline: calc(var(--padding) / 3);
 	}
 
