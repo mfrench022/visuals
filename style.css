@@ -7,6 +7,9 @@
 	--black: #1a1a1a;
 	--font-size1: 0.9rem;
 	--font-size2: 1.2rem;
+	--font-weight1: 300;
+	--font-weight2: 600;
+	--text-shadow1: 0px 0px 0.2rem #00000088;
 }
 
 html {
@@ -67,7 +70,7 @@ nav {
 
 	a {
 		font-family: 'Libre Franklin', sans-serif;
-		font-weight: 300;
+		font-weight: var(--font-weight1);
 		font-size: var(--font-size1);
 		color: var(--white);
 		transition: all 0.3s ease-in-out;
@@ -79,7 +82,7 @@ nav {
 	/* invisible bold copy that reserves the bold width */
 	a::after {
 		content: attr(data-text);
-		font-weight: 700;
+		font-weight: var(--font-weight2);
 		height: 0;
 		visibility: hidden;
 		overflow: hidden;
@@ -88,7 +91,8 @@ nav {
 	}
 
 	a:hover, .active {
-		font-weight: 700;
+		font-weight: var(--font-weight2);
+		text-shadow: var(--text-shadow1);
 	}
 
 }
@@ -114,9 +118,11 @@ header {
 
 	h2 {
 		font-family: 'Libre Franklin', sans-serif;
-		font-weight: 300;
 		font-size: var(--font-size2);
 		text-align: center;
+		color: var(--white);
+		font-weight: var(--font-weight2);
+		text-shadow: var(--text-shadow1);
 	}
 }
 
