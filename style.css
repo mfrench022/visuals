@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap');
+
+:root {
+	--padding: 3rem;
+	--white: #e4dfdf;
+	--black: #1a1a1a;
+	--font-size1: 0.9rem;
+	--font-size2: 1.2rem;
+}
+
+html {
+	font-size: 120%
+}
+
+.hero {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: bottom left;
+	}
+}
+
+nav {
+	position: fixed;
+	width: 100vw;
+	padding-inline: var(--padding);
+	height: var(--padding);
+	/* background-color: #4a4a4a88; */
+
+	/* blur layer, faded out at the bottom so there's no hard edge */
+	&::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		height: 200%;
+		z-index: -1;
+		pointer-events: none;
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+		/* eased fade (vs. linear) avoids a visible band where the fade starts */
+		--fade: linear-gradient(to bottom,
+			black 0%,
+			black 35%,
+			rgb(0 0 0 / 0.85) 48%,
+			rgb(0 0 0 / 0.6) 60%,
+			rgb(0 0 0 / 0.35) 72%,
+			rgb(0 0 0 / 0.15) 84%,
+			rgb(0 0 0 / 0.04) 93%,
+			transparent 100%);
+		mask-image: var(--fade);
+		-webkit-mask-image: var(--fade);
+		background-color: #11111165;
+	}
+
+	ul {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 100%;
+	}
+
+	a {
+		font-family: 'Libre Franklin', sans-serif;
+		font-weight: 300;
+		font-size: var(--font-size1);
+		color: var(--white);
+		transition: all 0.3s ease-in-out;
+		display: inline-flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	/* invisible bold copy that reserves the bold width */
+	a::after {
+		content: attr(data-text);
+		font-weight: 700;
+		height: 0;
+		visibility: hidden;
+		overflow: hidden;
+		user-select: none;
+		pointer-events: none;
+	}
+
+	a:hover, .active {
+		font-weight: 700;
+	}
+
+}
+
+header {
+	position: fixed;
+	width: calc(50vw - var(--padding));
+	height: 50vh;
+	background-color: red;
+	right: var(--padding);
+	top: calc(25vh + (var(--padding) / 2));
+	top: 25vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	img {
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+		padding-block-end: calc(var(--padding) / 3);
+	}
+
+	h2 {
+		font-family: 'Libre Franklin', sans-serif;
+		font-weight: 300;
+		font-size: var(--font-size2);
+		text-align: center;
+	}
+}
+
+@media (width < 910px) {
+
+	html {
+		font-size: 100%;
+	}
+
+	nav {
+		padding-inline: calc(var(--padding) / 2);
+	}
+
+	header {
+		width: 100vw;
+		height: 30vh;
+		right: 0;
+		top: 10vh;
+		padding-inline: calc(var(--padding) / 2);
+	}
+	
+}
+
+@media (width < 410px) {
+
+	html {
+		font-size: 90%;
+	}
+	
+	nav {
+		padding-inline: calc(var(--padding) / 2);
+	}
+}
