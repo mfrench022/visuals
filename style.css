@@ -137,16 +137,26 @@ header {
 		top: 10vh;
 		padding-inline: calc(var(--padding) / 2);
 	}
-	
+
 }
 
-@media (width < 410px) {
+@media (width < 500px) {
 
 	html {
 		font-size: 90%;
 	}
 	
 	nav {
-		padding-inline: calc(var(--padding) / 2);
+		padding-inline: calc(var(--padding) / 3);
+	}
+
+	header {
+		padding-inline: calc(var(--padding) / 3);
+	}
+
+	.hero {
+		img {
+			object-position: 10%;
+		}
 	}
 }
