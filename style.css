@@ -96,11 +96,11 @@ nav {
 header {
 	position: fixed;
 	width: calc(50vw - var(--padding));
-	height: 50vh;
-	background-color: red;
+	height: auto;
+	/* background-color: red; */
 	right: var(--padding);
-	top: calc(25vh + (var(--padding) / 2));
-	top: 25vh;
+	top: 50%;
+	transform: translateY(-50%);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -132,9 +132,8 @@ header {
 
 	header {
 		width: 100vw;
-		height: 30vh;
 		right: 0;
-		top: 10vh;
+		top: 25%;
 		padding-inline: calc(var(--padding) / 2);
 	}
 
