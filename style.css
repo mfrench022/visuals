@@ -10,6 +10,8 @@
 	--font-weight1: 300;
 	--font-weight2: 600;
 	--text-shadow1: 0px 0px 0.2rem #00000088;
+	--lineheight1: 1.05rem;
+	--lineheight2: 1.35rem;
 }
 
 html {
@@ -34,11 +36,13 @@ html {
 	bottom: 0;
 	color: var(--white);
 	width: 100%;
-	height: var(--padding);
+	min-height: var(--padding);
+	height: auto;
 	display: flex;
 	justify-content: right;
 	align-items: center;
 	padding-inline: var(--padding);
+	padding-block: calc(var(--padding) / 3);
 
 	/* blur layer, faded out at the top so there's no hard edge */
 	&::before {
@@ -50,7 +54,6 @@ html {
 		pointer-events: none;
 		backdrop-filter: blur(3px);
 		-webkit-backdrop-filter: blur(3px);
-		/* eased fade (vs. linear) avoids a visible band where the fade starts */
 		--fade: linear-gradient(to top,
 			black 0%,
 			black 35%,
@@ -71,6 +74,7 @@ html {
 		text-shadow: var(--text-shadow1);
 		font-weight: var(--font-weight1);
 		text-align: right;
+		line-height: var(--lineheight1);
 	}
 }
 
@@ -79,6 +83,7 @@ nav {
 	width: 100vw;
 	padding-inline: var(--padding);
 	height: var(--padding);
+	padding-block: calc(var(--padding) / 3);
 	/* background-color: #4a4a4a88; */
 
 	/* blur layer, faded out at the bottom so there's no hard edge */
@@ -122,6 +127,7 @@ nav {
 		display: inline-flex;
 		flex-direction: column;
 		align-items: center;
+		line-height: var(--lineheight1);
 	}
 
 	/* invisible bold copy that reserves the bold width */
@@ -142,6 +148,10 @@ nav {
 
 }
 
+nav, .hero-caption {
+	z-index: 10;
+}
+
 header {
 	position: fixed;
 	width: calc(50vw - var(--padding));
@@ -153,12 +163,13 @@ header {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	z-index: 1;
 
 	img {
 		width: 100%;
 		height: auto;
 		object-fit: contain;
-		padding-block-end: calc(var(--padding) / 3);
+		padding-block-end: calc(var(--padding) / 10);
 	}
 
 	h2 {
@@ -168,6 +179,7 @@ header {
 		color: var(--white);
 		font-weight: var(--font-weight2);
 		text-shadow: var(--text-shadow1);
+		line-height: var(--lineheight2);
 	}
 }
 
@@ -177,14 +189,18 @@ header {
 		font-size: 100%;
 	}
 
-	nav, .hero-caption, header {
+	nav, .hero-caption {
 		padding-inline: calc(var(--padding) / 2);
+	}
+
+	header img{
+		padding-inline: calc(var(--padding) * 2);
 	}
 
 	header {
 		width: 100vw;
 		right: 0;
-		top: 25%;
+		top: calc((2 * var(--padding)) + 15%);
 	}
 }
 
@@ -194,13 +210,55 @@ header {
 		font-size: 90%;
 	}
 	
-	nav, .hero-caption, header {
+	nav, .hero-caption {
 		padding-inline: calc(var(--padding) / 3);
 	}
+
+	.hero-caption {
+		justify-content: center;
+
+		p {
+			text-align: center;
+		}
+	}
+
+
+	header img{
+		padding-inline: calc(var(--padding) * 1);
+	}
+
 
 	.hero {
 		img {
 			object-position: 10%;
 		}
+	}
+}
+
+@media (height < 600px) and (width < 910px) {
+
+	header {
+		top: calc((2 * var(--padding)) + 20%);
+	}
+
+	header img{
+		padding-inline: calc(var(--padding) * 4);
+	}
+
+}
+
+
+@media (height < 600px) and (width > 910px) {
+
+	header img{
+		padding-inline: calc(var(--padding) * 2);
+	}
+
+}
+
+@media (height < 300px) {
+
+	header {
+		top: calc((2 * var(--padding)) + 15%);
 	}
 }

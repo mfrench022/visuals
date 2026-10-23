@@ -1,0 +1,25 @@
+.work-header {
+    background-color: red;
+    height: 100vh;
+    width: calc(6 * var(--padding));
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    padding-inline: calc(var(--padding) / 2);
+}
+
+@media (width < 910px) {
+
+	.work-header {
+        max-height: 15vh;
+        height: auto;
+        width: 100vw;
+        bottom: 0;
+        top: auto;
+        left: 0;
+        transform: none;
+        padding-inline: calc(var(--padding) / 2);
+    }
+
+}
