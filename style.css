@@ -12,6 +12,10 @@
 	--text-shadow1: 0px 0px 0.2rem #00000088;
 	--lineheight1: 1.05rem;
 	--lineheight2: 1.35rem;
+	--focus-gradient-left: linear-gradient(270deg,rgba(26, 26, 26, 0.7) 0%, rgba(26, 26, 26, 0.35) 70%, rgba(26, 26, 26, 0) 100%);
+	--focus-gradient-top: linear-gradient(180deg,rgba(26, 26, 26, 0.7) 0%, rgba(26, 26, 26, 0.35) 70%, rgba(26, 26, 26, 0) 100%);
+	--focus-gradient-top2: linear-gradient(180deg,rgba(26, 26, 26, 0.55) 0%, rgba(26, 26, 26, 0.15) 70%, rgba(26, 26, 26, 0) 100%);
+	--focus-gradient-bottom: linear-gradient(0deg,rgba(26, 26, 26, 0.55) 0%, rgba(26, 26, 26, 0.15) 70%, rgba(26, 26, 26, 0) 100%);
 }
 
 html {
@@ -36,16 +40,21 @@ html {
 	bottom: 0;
 	color: var(--white);
 	width: 100%;
-	min-height: var(--padding);
+	min-height:  calc(var(--padding) + 2rem);
 	height: auto;
 	display: flex;
 	justify-content: right;
-	align-items: center;
+	align-items: flex-end;
 	padding-inline: var(--padding);
-	padding-block: calc(var(--padding) / 3);
+	padding-block-end: calc(var(--padding) / 3);
+
+	background: #1A1A1A;
+	background: var(--focus-gradient-bottom);
+
 
 	/* blur layer, faded out at the top so there's no hard edge */
-	&::before {
+
+	/* &::before {
 		content: "";
 		position: absolute;
 		inset: auto 0 0 0;
@@ -66,7 +75,7 @@ html {
 		mask-image: var(--fade);
 		-webkit-mask-image: var(--fade);
 		background-color: #11111165;
-	}
+	} */
 
 	p {
 		font-family: 'Libre Franklin', sans-serif;
@@ -82,12 +91,17 @@ nav {
 	position: fixed;
 	width: 100vw;
 	padding-inline: var(--padding);
-	height: var(--padding);
-	padding-block: calc(var(--padding) / 3);
+	height: calc(var(--padding) + 2rem);
+	padding-block-start: calc(var(--padding) / 3);
+
+	background: #1A1A1A;
+	background: var(--focus-gradient-top2);
+
 	/* background-color: #4a4a4a88; */
 
 	/* blur layer, faded out at the bottom so there's no hard edge */
-	&::before {
+
+	/* &::before {
 		content: "";
 		position: absolute;
 		inset: 0;
@@ -96,7 +110,6 @@ nav {
 		pointer-events: none;
 		backdrop-filter: blur(3px);
 		-webkit-backdrop-filter: blur(3px);
-		/* eased fade (vs. linear) avoids a visible band where the fade starts */
 		--fade: linear-gradient(to bottom,
 			black 0%,
 			black 35%,
@@ -109,12 +122,12 @@ nav {
 		mask-image: var(--fade);
 		-webkit-mask-image: var(--fade);
 		background-color: #11111165;
-	}
+	} */
 
 	ul {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		/* align-items: center; */
 		height: 100%;
 	}
 
@@ -154,22 +167,23 @@ nav, .hero-caption {
 
 header {
 	position: fixed;
-	width: calc(50vw - var(--padding));
+	width: calc(12 * var(--padding));
 	height: auto;
 	/* background-color: red; */
-	right: var(--padding);
+	right: calc(1 * var(--padding));
 	top: 50%;
-	transform: translateY(-50%);
+	transform: translateY(-55%);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	z-index: 1;
+	z-index: 2;
 
 	img {
 		width: 100%;
 		height: auto;
 		object-fit: contain;
-		padding-block-end: calc(var(--padding) / 10);
+		padding-block-end: calc(var(--padding) / 4);
+		filter: drop-shadow(var(--text-shadow1));
 	}
 
 	h2 {
@@ -177,13 +191,31 @@ header {
 		font-size: var(--font-size2);
 		text-align: center;
 		color: var(--white);
-		font-weight: var(--font-weight2);
+		font-weight: var(--font-weight1);
 		text-shadow: var(--text-shadow1);
 		line-height: var(--lineheight2);
 	}
 }
 
-@media (width < 910px) {
+.header-background {
+	position: fixed;
+	width: calc(50vw + (4 * var(--padding)));
+	height: 100vh;
+	right: 0;
+	top: 0;
+	z-index: 1;
+	background: #1A1A1A;
+	background: var(--focus-gradient-left);
+	/* background-color: red; */
+}
+
+@media (width < 1250px) {
+	header {
+		width: calc(8 * var(--padding));
+	}
+}
+
+@media (width < 980px) {
 
 	html {
 		font-size: 100%;
@@ -193,18 +225,21 @@ header {
 		padding-inline: calc(var(--padding) / 2);
 	}
 
-	header img{
-		padding-inline: calc(var(--padding) * 2);
+	header {
+		width: calc(10 * var(--padding));
+		right: 50%;
+		transform: translateX(50%);
+		top: calc((2 * var(--padding)) + 5%);
 	}
 
-	header {
+	.header-background {
+		background: var(--focus-gradient-top);
 		width: 100vw;
-		right: 0;
-		top: calc((2 * var(--padding)) + 15%);
-	}
+		height: 50vh;
+}
 }
 
-@media (width < 500px) {
+@media (width < 600px) {
 
 	html {
 		font-size: 90%;
@@ -222,11 +257,9 @@ header {
 		}
 	}
 
-
-	header img{
-		padding-inline: calc(var(--padding) * 1);
+	header {
+		width: calc(7 * var(--padding));
 	}
-
 
 	.hero {
 		img {
@@ -238,27 +271,29 @@ header {
 @media (height < 600px) and (width < 910px) {
 
 	header {
-		top: calc((2 * var(--padding)) + 20%);
-	}
+		top: calc(2 * var(--padding));
 
-	header img{
-		padding-inline: calc(var(--padding) * 4);
+		h2 {
+			font-size: var(--font-size1);
+			line-height: var(--lineheight1);
+		}
 	}
-
 }
 
-
-@media (height < 600px) and (width > 910px) {
-
-	header img{
-		padding-inline: calc(var(--padding) * 2);
-	}
-
-}
-
-@media (height < 300px) {
+@media (height < 450px) {
 
 	header {
-		top: calc((2 * var(--padding)) + 15%);
+		top: 50%;
+		left: 50%;
+		right: auto;
+		bottom: auto;
+		transform: translateX(-50%) translateY(-50%);
+		width: calc(5 * var(--padding));
+
+		h2 {
+			font-size: var(--font-size1);
+			line-height: var(--lineheight1);
+		}
 	}
+
 }
