@@ -35,9 +35,22 @@
       </ul>
     </nav>
 
-    <header>
-      <img src="logo.png">
-       <h2>Brand & Communications Designer</h2>
+    <!-- image layer: blends with the hero; its h2 only reserves space -->
+    <header class="header-blend" aria-hidden="true">
+      <img class="logo" src="logo.png" alt="">
+      <div class="header-text">
+        <h2>Brand & Communications Designer</h2>
+        <img src="text-backdrop.png" alt="">
+      </div>
+    </header>
+
+    <!-- text layer: sits on top, unblended; its images only reserve space -->
+    <header class="header-content">
+      <img class="logo" src="logo.png" alt="Michael French Logo">
+      <div class="header-text">
+        <h2>Brand & Communications Designer</h2>
+        <img src="text-backdrop.png">
+      </div>
     </header>
     <div class="header-background"></div>
 

@@ -7,7 +7,8 @@
 	--black: #1a1a1a;
 	--font-size1: 0.9rem;
 	--font-size2: 1.2rem;
-	--font-weight1: 300;
+	--font-size3: 0.5rem;
+	--font-weight1: 100;
 	--font-weight2: 600;
 	--text-shadow1: 0px 0px 0.2rem #00000088;
 	--lineheight1: 1.05rem;
@@ -178,22 +179,54 @@ header {
 	justify-content: center;
 	z-index: 2;
 
-	img {
+	.logo {
 		width: 100%;
 		height: auto;
 		object-fit: contain;
-		padding-block-end: calc(var(--padding) / 4);
+		/* GAP between logo and text backdrop: change this value to adjust it */
+		padding-block-end: calc(var(--padding) / 10);
 		filter: drop-shadow(var(--text-shadow1));
+	}
+}
+
+/* header is fixed, so it's its own stacking context: blend the whole layer, not the imgs */
+.header-blend {
+	mix-blend-mode: plus-lighter;
+
+	h2 {
+		visibility: hidden;
+	}
+}
+
+.header-content img {
+	visibility: hidden;
+}
+
+.header-text {
+	display: grid;
+
+	/* stack text and backdrop in the same cell so the backdrop stays in flow */
+	h2, img {
+		grid-area: 1 / 1;
 	}
 
 	h2 {
+		align-self: center;
+		translate: 0 18%;
 		font-family: 'Libre Franklin', sans-serif;
 		font-size: var(--font-size2);
 		text-align: center;
-		color: var(--white);
+		color: var(--black);
 		font-weight: var(--font-weight1);
-		text-shadow: var(--text-shadow1);
 		line-height: var(--lineheight2);
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+		max-block-size: none;
+		z-index: -1;
+		filter: drop-shadow(var(--text-shadow1));
 	}
 }
 
@@ -213,6 +246,13 @@ header {
 	header {
 		width: calc(8 * var(--padding));
 	}
+
+	.header-text {
+		h2 {
+			translate: 0 12%;
+		}
+	}
+
 }
 
 @media (width < 980px) {
@@ -230,6 +270,12 @@ header {
 		right: 50%;
 		transform: translateX(50%);
 		top: calc((2 * var(--padding)) + 5%);
+	}
+
+	.header-text {
+		h2 {
+			translate: 0 18%;
+		}
 	}
 
 	.header-background {
@@ -266,6 +312,12 @@ header {
 			object-position: 10%;
 		}
 	}
+
+	.header-text {
+		h2 {
+			translate: 0 12%;
+		}
+	}
 }
 
 @media (height < 600px) and (width < 910px) {
@@ -274,13 +326,17 @@ header {
 		top: calc(2 * var(--padding));
 
 		h2 {
-			font-size: var(--font-size1);
 			line-height: var(--lineheight1);
+			font-size: var(--font-size1);
 		}
 	}
 }
 
 @media (height < 450px) {
+
+	html {
+		font-size: 90%;
+	}
 
 	header {
 		top: 50%;
@@ -288,11 +344,14 @@ header {
 		right: auto;
 		bottom: auto;
 		transform: translateX(-50%) translateY(-50%);
-		width: calc(5 * var(--padding));
+		width: calc(6 * var(--padding));
+	}
 
+	.header-text {
 		h2 {
 			font-size: var(--font-size1);
 			line-height: var(--lineheight1);
+			translate: 0 12%;
 		}
 	}
 
