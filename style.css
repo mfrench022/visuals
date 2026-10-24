@@ -13,6 +13,9 @@
 	--white-transparent: #f5f5f5ac;
 	--shade: 26, 26, 26;
 
+	/* Test shade (RED) */
+	/* --shade: 255, 6, 6; */
+
 	/* type */
 	--font-family: 'Libre Franklin', sans-serif;
 	--font-size1: 0.9rem;
@@ -26,16 +29,15 @@
 
 	/* effects */
 	/* --text-shadow1: 0px 0px 0.2rem #00000088; */
-	--text-shadow2: 0px 0px 1rem #0c0c0c00;
+	--text-shadow2: 0px 0px 0.8rem #0b0b0b95;
+	--text-shadow3: 0px 0px 0.5rem #020202;
 	--border-radius: 3rem;
 	--blur: 0.5rem;
 	--transition: 0.3s ease-in-out;
 
 	/* gradients */
 	--focus-gradient-left: linear-gradient(270deg, rgba(var(--shade), 0.7) 0%, rgba(var(--shade), 0.35) 70%, rgba(var(--shade), 0) 100%);
-	--focus-gradient-top: linear-gradient(180deg, rgba(var(--shade), 0.7) 0%, rgba(var(--shade), 0.35) 70%, rgba(var(--shade), 0) 100%);
-	--focus-gradient-top2: linear-gradient(180deg, rgba(var(--shade), 0.55) 0%, rgba(var(--shade), 0.15) 70%, rgba(var(--shade), 0) 100%);
-	--focus-gradient-bottom: linear-gradient(0deg, rgba(var(--shade), 0.55) 0%, rgba(var(--shade), 0.15) 70%, rgba(var(--shade), 0) 100%);
+	--focus-gradient-top: linear-gradient(180deg, rgba(var(--shade), 0.4) 0%, rgba(var(--shade), 0.7) 40%, rgba(var(--shade), 0.35) 70%, rgba(var(--shade), 0) 100%);
 }
 
 html {
@@ -146,7 +148,7 @@ header {
 		object-fit: contain;
 		/* GAP between logo and text backdrop: change this value to adjust it */
 		padding-block-end: calc(var(--padding) / 10);
-		filter: drop-shadow(var(--text-shadow2));
+		filter: drop-shadow(var(--text-shadow3));
 	}
 
 	/* header is fixed, so it's its own stacking context: blend the whole layer, not the imgs */
@@ -192,7 +194,7 @@ header {
 		height: auto;
 		max-block-size: none;
 		z-index: -1;
-		filter: drop-shadow(var(--text-shadow2));
+		filter: drop-shadow(var(--text-shadow3));
 	}
 }
 
@@ -236,7 +238,7 @@ header {
 
 	.header-background {
 		width: 100vw;
-		height: 50vh;
+		height: 70vh;
 		background: var(--focus-gradient-top);
 	}
 }
@@ -281,6 +283,7 @@ header {
 			line-height: var(--lineheight1);
 		}
 	}
+
 }
 
 @media (height < 510px) {
@@ -307,5 +310,9 @@ header {
 		font-size: var(--font-size1);
 		line-height: var(--lineheight1);
 		translate: 0 14%;
+	}
+
+	.header-background {
+		height: 90vh;
 	}
 }
