@@ -1,26 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://use.typekit.net/ldw5apl.css");
 /* @import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap'); */
 
 :root {
+	/* spacing */
 	--padding: 3rem;
+	--bar-inset: calc(var(--padding) / 2);
+
+	/* color */
 	--white: #e4dfdf;
-	--black: #1a1a1a;
+	--black: #232323;
+	--white-transparent: #f5f5f5ac;
+	--shade: 26, 26, 26;
+
+	/* type */
+	--font-family: 'Libre Franklin', sans-serif;
 	--font-size1: 0.9rem;
 	--font-size2: 1.2rem;
 	--font-size3: 0.5rem;
+	--font-size4: 1.4rem;
 	--font-weight1: 100;
 	--font-weight2: 600;
-	--text-shadow1: 0px 0px 0.2rem #00000088;
 	--lineheight1: 1.05rem;
 	--lineheight2: 1.35rem;
-	--focus-gradient-left: linear-gradient(270deg,rgba(26, 26, 26, 0.7) 0%, rgba(26, 26, 26, 0.35) 70%, rgba(26, 26, 26, 0) 100%);
-	--focus-gradient-top: linear-gradient(180deg,rgba(26, 26, 26, 0.7) 0%, rgba(26, 26, 26, 0.35) 70%, rgba(26, 26, 26, 0) 100%);
-	--focus-gradient-top2: linear-gradient(180deg,rgba(26, 26, 26, 0.55) 0%, rgba(26, 26, 26, 0.15) 70%, rgba(26, 26, 26, 0) 100%);
-	--focus-gradient-bottom: linear-gradient(0deg,rgba(26, 26, 26, 0.55) 0%, rgba(26, 26, 26, 0.15) 70%, rgba(26, 26, 26, 0) 100%);
+
+	/* effects */
+	/* --text-shadow1: 0px 0px 0.2rem #00000088; */
+	--text-shadow2: 0px 0px 1rem #0c0c0c00;
+	--border-radius: 3rem;
+	--blur: 0.5rem;
+	--transition: 0.3s ease-in-out;
+
+	/* gradients */
+	--focus-gradient-left: linear-gradient(270deg, rgba(var(--shade), 0.7) 0%, rgba(var(--shade), 0.35) 70%, rgba(var(--shade), 0) 100%);
+	--focus-gradient-top: linear-gradient(180deg, rgba(var(--shade), 0.7) 0%, rgba(var(--shade), 0.35) 70%, rgba(var(--shade), 0) 100%);
+	--focus-gradient-top2: linear-gradient(180deg, rgba(var(--shade), 0.55) 0%, rgba(var(--shade), 0.15) 70%, rgba(var(--shade), 0) 100%);
+	--focus-gradient-bottom: linear-gradient(0deg, rgba(var(--shade), 0.55) 0%, rgba(var(--shade), 0.15) 70%, rgba(var(--shade), 0) 100%);
 }
 
 html {
-	font-size: 120%
+	font-size: 120%;
+}
+
+body {
+	font-family: var(--font-family);
+	font-weight: var(--font-weight1);
+	color: var(--black);
 }
 
 .hero {
@@ -36,148 +61,84 @@ html {
 	}
 }
 
-.hero-caption {
+/* shared frosted bar: nav on top, caption on bottom */
+nav, .hero-caption {
 	position: fixed;
+	z-index: 10;
+	width: calc(100vw - (2 * var(--bar-inset)));
+	padding-inline: var(--bar-inset);
+	margin-inline: var(--bar-inset);
+	background-color: var(--white-transparent);
+	backdrop-filter: blur(var(--blur));
+	corner-shape: squircle;
+	box-shadow: var(--text-shadow2);
+}
+
+.hero-caption {
 	bottom: 0;
-	color: var(--white);
-	width: 100%;
-	min-height:  calc(var(--padding) + 2rem);
-	height: auto;
+	min-height: var(--padding);
+	padding-block: calc(var(--padding) / 4);
 	display: flex;
-	justify-content: right;
-	align-items: flex-end;
-	padding-inline: var(--padding);
-	padding-block-end: calc(var(--padding) / 3);
-
-	background: #1A1A1A;
-	background: var(--focus-gradient-bottom);
-
-
-	/* blur layer, faded out at the top so there's no hard edge */
-
-	/* &::before {
-		content: "";
-		position: absolute;
-		inset: auto 0 0 0;
-		height: 200%;
-		z-index: -1;
-		pointer-events: none;
-		backdrop-filter: blur(3px);
-		-webkit-backdrop-filter: blur(3px);
-		--fade: linear-gradient(to top,
-			black 0%,
-			black 35%,
-			rgb(0 0 0 / 0.85) 48%,
-			rgb(0 0 0 / 0.6) 60%,
-			rgb(0 0 0 / 0.35) 72%,
-			rgb(0 0 0 / 0.15) 84%,
-			rgb(0 0 0 / 0.04) 93%,
-			transparent 100%);
-		mask-image: var(--fade);
-		-webkit-mask-image: var(--fade);
-		background-color: #11111165;
-	} */
+	justify-content: left;
+	align-items: center;
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
 
 	p {
-		font-family: 'Libre Franklin', sans-serif;
 		font-size: var(--font-size1);
-		text-shadow: var(--text-shadow1);
-		font-weight: var(--font-weight1);
-		text-align: right;
+		text-align: left;
 		line-height: var(--lineheight1);
 	}
 }
 
 nav {
-	position: fixed;
-	width: 100vw;
-	padding-inline: var(--padding);
-	height: calc(var(--padding) + 2rem);
-	padding-block-start: calc(var(--padding) / 3);
-
-	background: #1A1A1A;
-	background: var(--focus-gradient-top2);
-
-	/* background-color: #4a4a4a88; */
-
-	/* blur layer, faded out at the bottom so there's no hard edge */
-
-	/* &::before {
-		content: "";
-		position: absolute;
-		inset: 0;
-		height: 200%;
-		z-index: -1;
-		pointer-events: none;
-		backdrop-filter: blur(3px);
-		-webkit-backdrop-filter: blur(3px);
-		--fade: linear-gradient(to bottom,
-			black 0%,
-			black 35%,
-			rgb(0 0 0 / 0.85) 48%,
-			rgb(0 0 0 / 0.6) 60%,
-			rgb(0 0 0 / 0.35) 72%,
-			rgb(0 0 0 / 0.15) 84%,
-			rgb(0 0 0 / 0.04) 93%,
-			transparent 100%);
-		mask-image: var(--fade);
-		-webkit-mask-image: var(--fade);
-		background-color: #11111165;
-	} */
+	height: var(--padding);
+	border-bottom-left-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
 
 	ul {
 		display: flex;
 		justify-content: space-between;
-		/* align-items: center; */
+		align-items: center;
 		height: 100%;
 	}
 
 	a {
-		font-family: 'Libre Franklin', sans-serif;
-		font-weight: var(--font-weight1);
 		font-size: var(--font-size1);
-		color: var(--white);
-		transition: all 0.3s ease-in-out;
+		line-height: var(--lineheight1);
 		display: inline-flex;
 		flex-direction: column;
 		align-items: center;
-		line-height: var(--lineheight1);
+		transition: all var(--transition);
+
+		/* invisible bold copy that reserves the bold width */
+		&::after {
+			content: attr(data-text);
+			font-weight: var(--font-weight2);
+			height: 0;
+			visibility: hidden;
+			overflow: hidden;
+			user-select: none;
+			pointer-events: none;
+		}
+
+		&:hover, &.active {
+			font-weight: var(--font-weight2);
+			text-decoration: dashed;
+		}
 	}
-
-	/* invisible bold copy that reserves the bold width */
-	a::after {
-		content: attr(data-text);
-		font-weight: var(--font-weight2);
-		height: 0;
-		visibility: hidden;
-		overflow: hidden;
-		user-select: none;
-		pointer-events: none;
-	}
-
-	a:hover, .active {
-		font-weight: var(--font-weight2);
-		text-shadow: var(--text-shadow1);
-	}
-
-}
-
-nav, .hero-caption {
-	z-index: 10;
 }
 
 header {
 	position: fixed;
+	z-index: 2;
 	width: calc(12 * var(--padding));
-	height: auto;
-	/* background-color: red; */
-	right: calc(1 * var(--padding));
+	right: var(--padding);
 	top: 50%;
 	transform: translateY(-55%);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	z-index: 2;
 
 	.logo {
 		width: 100%;
@@ -185,21 +146,27 @@ header {
 		object-fit: contain;
 		/* GAP between logo and text backdrop: change this value to adjust it */
 		padding-block-end: calc(var(--padding) / 10);
-		filter: drop-shadow(var(--text-shadow1));
+		filter: drop-shadow(var(--text-shadow2));
 	}
-}
 
-/* header is fixed, so it's its own stacking context: blend the whole layer, not the imgs */
-.header-blend {
-	mix-blend-mode: plus-lighter;
+	/* header is fixed, so it's its own stacking context: blend the whole layer, not the imgs */
+	&.header-blend {
+		mix-blend-mode: screen;
 
-	h2 {
+		/* black is a no-op under screen, so the text knocks out of the backdrop */
+		h2 {
+			color: #000;
+		}
+	}
+
+	&.header-content img {
 		visibility: hidden;
 	}
-}
 
-.header-content img {
-	visibility: hidden;
+	/* keep the text in flow for layout and screen readers, but let the hole show */
+	&.header-content h2 {
+		color: transparent;
+	}
 }
 
 .header-text {
@@ -212,13 +179,12 @@ header {
 
 	h2 {
 		align-self: center;
-		translate: 0 18%;
-		font-family: 'Libre Franklin', sans-serif;
-		font-size: var(--font-size2);
-		text-align: center;
-		color: var(--black);
-		font-weight: var(--font-weight1);
+		translate: 0 25%;
+		font-size: var(--font-size4);
 		line-height: var(--lineheight2);
+		text-align: center;
+		font-family: "cc-thismanthismonster-var",sans-serif;
+		font-variation-settings: 'CHEW' 1, 'WONK' 10, 'BITE' 0;
 	}
 
 	img {
@@ -226,73 +192,62 @@ header {
 		height: auto;
 		max-block-size: none;
 		z-index: -1;
-		filter: drop-shadow(var(--text-shadow1));
+		filter: drop-shadow(var(--text-shadow2));
 	}
 }
 
 .header-background {
 	position: fixed;
+	z-index: 1;
 	width: calc(50vw + (4 * var(--padding)));
 	height: 100vh;
-	right: 0;
 	top: 0;
-	z-index: 1;
-	background: #1A1A1A;
+	right: 0;
 	background: var(--focus-gradient-left);
-	/* background-color: red; */
 }
+
+/* ---------- responsive ---------- */
 
 @media (width < 1250px) {
 	header {
 		width: calc(8 * var(--padding));
 	}
 
-	.header-text {
-		h2 {
-			translate: 0 12%;
-		}
+	.header-text h2 {
+		translate: 0 14%;
 	}
-
 }
 
 @media (width < 980px) {
-
 	html {
 		font-size: 100%;
 	}
 
-	nav, .hero-caption {
-		padding-inline: calc(var(--padding) / 2);
-	}
-
 	header {
 		width: calc(10 * var(--padding));
+		top: calc((2 * var(--padding)) + 5%);
 		right: 50%;
 		transform: translateX(50%);
-		top: calc((2 * var(--padding)) + 5%);
 	}
 
-	.header-text {
-		h2 {
-			translate: 0 18%;
-		}
+	.header-text h2 {
+		translate: 0 25%;
 	}
 
 	.header-background {
-		background: var(--focus-gradient-top);
 		width: 100vw;
 		height: 50vh;
-}
+		background: var(--focus-gradient-top);
+	}
 }
 
 @media (width < 600px) {
-
 	html {
 		font-size: 90%;
 	}
-	
+
 	nav, .hero-caption {
-		padding-inline: calc(var(--padding) / 3);
+		--bar-inset: calc(var(--padding) / 4);
 	}
 
 	.hero-caption {
@@ -303,56 +258,54 @@ header {
 		}
 	}
 
+	.hero img {
+		object-position: 10%;
+	}
+
 	header {
 		width: calc(7 * var(--padding));
 	}
 
-	.hero {
-		img {
-			object-position: 10%;
-		}
-	}
-
-	.header-text {
-		h2 {
-			translate: 0 12%;
-		}
+	.header-text h2 {
+		font-size: var(--font-size1);
+		line-height: var(--lineheight1);
 	}
 }
 
 @media (height < 600px) and (width < 910px) {
-
 	header {
 		top: calc(2 * var(--padding));
 
 		h2 {
-			line-height: var(--lineheight1);
 			font-size: var(--font-size1);
+			line-height: var(--lineheight1);
 		}
 	}
 }
 
-@media (height < 450px) {
+@media (height < 510px) {
+	.hero img {
+		object-position: left 70%;
+	}
+}
 
+@media (height < 450px) {
 	html {
 		font-size: 90%;
 	}
 
 	header {
+		width: calc(6 * var(--padding));
 		top: 50%;
-		left: 50%;
 		right: auto;
 		bottom: auto;
-		transform: translateX(-50%) translateY(-50%);
-		width: calc(6 * var(--padding));
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 
-	.header-text {
-		h2 {
-			font-size: var(--font-size1);
-			line-height: var(--lineheight1);
-			translate: 0 12%;
-		}
+	.header-text h2 {
+		font-size: var(--font-size1);
+		line-height: var(--lineheight1);
+		translate: 0 14%;
 	}
-
 }
