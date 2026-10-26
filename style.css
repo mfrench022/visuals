@@ -1,16 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap');
-@import url("https://use.typekit.net/ldw5apl.css");
 /* @import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap'); */
 
 :root {
 	/* spacing */
 	--padding: 3rem;
 	--bar-inset: calc(var(--padding) / 2);
+	--bar-inset-sm: calc(var(--bar-inset) / 2);
 
 	/* color */
-	--white: #e4dfdf;
 	--black: #232323;
-	--white-transparent: #f5f5f5ac;
+	--white-transparent: #CACACA;
 	--shade: 26, 26, 26;
 
 	/* Test shade (RED) */
@@ -19,13 +18,9 @@
 	/* type */
 	--font-family: 'Libre Franklin', sans-serif;
 	--font-size1: 0.9rem;
-	--font-size2: 1.2rem;
-	--font-size3: 0.5rem;
-	--font-size4: 1.4rem;
 	--font-weight1: 100;
 	--font-weight2: 600;
 	--lineheight1: 1.05rem;
-	--lineheight2: 1.35rem;
 
 	/* effects */
 	/* --text-shadow1: 0px 0px 0.2rem #00000088; */
@@ -34,6 +29,11 @@
 	--border-radius: 3rem;
 	--blur: 0.5rem;
 	--transition: 0.3s ease-in-out;
+
+	/* layers */
+	--z-header-background: 1;
+	--z-header: 2;
+	--z-bar: 10;
 
 	/* gradients */
 	--focus-gradient-left: linear-gradient(270deg, rgba(var(--shade), 0.7) 0%, rgba(var(--shade), 0.35) 70%, rgba(var(--shade), 0) 100%);
@@ -66,35 +66,34 @@ body {
 /* shared frosted bar: nav on top, caption on bottom */
 nav, .hero-caption {
 	position: fixed;
-	z-index: 10;
-	width: calc(100vw - (2 * var(--bar-inset)));
-	padding-inline: var(--bar-inset);
-	margin-inline: var(--bar-inset);
+	z-index: var(--z-bar);
+	max-width: calc(100vw - (2 * var(--bar-inset)));
+	padding-inline: var(--padding);
+	padding-block: calc(var(--padding) / 5);
 	background-color: var(--white-transparent);
 	backdrop-filter: blur(var(--blur));
 	corner-shape: squircle;
 	box-shadow: var(--text-shadow2);
+	/* mix-blend-mode: screen; */
+}
+
+/* shared bar text */
+nav a, .hero-caption p {
+	font-size: var(--font-size1);
+	line-height: var(--lineheight1);
 }
 
 .hero-caption {
 	bottom: 0;
-	min-height: var(--padding);
-	padding-block: calc(var(--padding) / 4);
 	display: flex;
-	justify-content: left;
 	align-items: center;
-	border-top-left-radius: var(--border-radius);
+	/* border-top-left-radius: var(--border-radius); */
 	border-top-right-radius: var(--border-radius);
-
-	p {
-		font-size: var(--font-size1);
-		text-align: left;
-		line-height: var(--lineheight1);
-	}
 }
 
 nav {
-	height: var(--padding);
+	left: 50%;
+	transform: translateX(-50%);
 	border-bottom-left-radius: var(--border-radius);
 	border-bottom-right-radius: var(--border-radius);
 
@@ -102,12 +101,10 @@ nav {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		height: 100%;
+		column-gap: var(--padding);
 	}
 
 	a {
-		font-size: var(--font-size1);
-		line-height: var(--lineheight1);
 		display: inline-flex;
 		flex-direction: column;
 		align-items: center;
@@ -126,81 +123,34 @@ nav {
 
 		&:hover, &.active {
 			font-weight: var(--font-weight2);
-			text-decoration: dashed;
 		}
 	}
 }
 
 header {
 	position: fixed;
-	z-index: 2;
+	z-index: var(--z-header);
 	width: calc(12 * var(--padding));
 	right: var(--padding);
 	top: 50%;
 	transform: translateY(-55%);
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 
 	.logo {
 		width: 100%;
 		height: auto;
-		object-fit: contain;
-		/* GAP between logo and text backdrop: change this value to adjust it */
-		padding-block-end: calc(var(--padding) / 10);
 		filter: drop-shadow(var(--text-shadow3));
 	}
 
-	/* header is fixed, so it's its own stacking context: blend the whole layer, not the imgs */
 	&.header-blend {
 		mix-blend-mode: screen;
-
-		/* black is a no-op under screen, so the text knocks out of the backdrop */
-		h2 {
-			color: #000;
-		}
-	}
-
-	&.header-content img {
-		visibility: hidden;
-	}
-
-	/* keep the text in flow for layout and screen readers, but let the hole show */
-	&.header-content h2 {
-		color: transparent;
-	}
-}
-
-.header-text {
-	display: grid;
-
-	/* stack text and backdrop in the same cell so the backdrop stays in flow */
-	h2, img {
-		grid-area: 1 / 1;
-	}
-
-	h2 {
-		align-self: center;
-		translate: 0 25%;
-		font-size: var(--font-size4);
-		line-height: var(--lineheight2);
-		text-align: center;
-		font-family: "cc-thismanthismonster-var",sans-serif;
-		font-variation-settings: 'CHEW' 1, 'WONK' 10, 'BITE' 0;
-	}
-
-	img {
-		width: 100%;
-		height: auto;
-		max-block-size: none;
-		z-index: -1;
-		filter: drop-shadow(var(--text-shadow3));
 	}
 }
 
 .header-background {
 	position: fixed;
-	z-index: 1;
+	z-index: var(--z-header-background);
 	width: calc(50vw + (4 * var(--padding)));
 	height: 100vh;
 	top: 0;
@@ -213,10 +163,6 @@ header {
 @media (width < 1250px) {
 	header {
 		width: calc(8 * var(--padding));
-	}
-
-	.header-text h2 {
-		translate: 0 14%;
 	}
 }
 
@@ -232,14 +178,18 @@ header {
 		transform: translateX(50%);
 	}
 
-	.header-text h2 {
-		translate: 0 25%;
-	}
-
 	.header-background {
 		width: 100vw;
 		height: 70vh;
 		background: var(--focus-gradient-top);
+	}
+
+	.hero-caption {
+		left: 0;
+		right: 0;
+		width: fit-content;
+		margin-inline: auto;
+		border-top-left-radius: var(--border-radius);
 	}
 }
 
@@ -249,9 +199,19 @@ header {
 	}
 
 	nav, .hero-caption {
-		width: 100%;
+		/* left + right + width:auto stretches the bar between equal gaps */
+		--gap: var(--bar-inset);
+		left: var(--gap);
+		right: var(--gap);
+		width: auto;
+		max-width: none;
 		margin-inline: 0;
-		border-radius: 0;
+		transform: none;
+		/* padding-inline: var(--padding); */
+	}
+
+	nav ul {
+		column-gap: var(--bar-inset);
 	}
 
 	.hero-caption {
@@ -269,23 +229,26 @@ header {
 	header {
 		width: calc(7 * var(--padding));
 	}
+}
 
-	.header-text h2 {
-		font-size: var(--font-size1);
-		line-height: var(--lineheight1);
+@media (width < 450px) {
+	nav, .hero-caption {
+		--gap: var(--bar-inset-sm);
+		padding-inline: calc(var(--bar-inset) * 1.25);
+	}
+
+	nav ul {
+		flex-wrap: wrap;
+		justify-content: center;
+		column-gap: var(--bar-inset-sm);
+		row-gap: calc(var(--bar-inset) / 4);
 	}
 }
 
 @media (height < 600px) and (width < 910px) {
 	header {
 		top: calc(2 * var(--padding));
-
-		h2 {
-			font-size: var(--font-size1);
-			line-height: var(--lineheight1);
-		}
 	}
-
 }
 
 @media (height < 510px) {
@@ -303,15 +266,8 @@ header {
 		width: calc(6 * var(--padding));
 		top: 50%;
 		right: auto;
-		bottom: auto;
 		left: 50%;
 		transform: translate(-50%, -50%);
-	}
-
-	.header-text h2 {
-		font-size: var(--font-size1);
-		line-height: var(--lineheight1);
-		translate: 0 14%;
 	}
 
 	.header-background {
