@@ -13,12 +13,20 @@
 	<link rel="stylesheet" href="reset.css">
 	<link rel="stylesheet" href="style.css">
 
+	<script src="copy-email.js" defer></script>
+	<script src="hero-slideshow.js" defer></script>
+
 </head>
 <body>
 	<div class="hero">
-		<img src="heroimages/herotest3.jpg" alt="Preview of work"/>
+		<img src="heroimages/hero1.jpg" alt="Preview of work" class="is-active"/>
+		<img src="heroimages/hero2.jpg" alt="Preview of work"/>
+		<img src="heroimages/hero3.jpg" alt="Preview of work"/>
+		<!-- muted + playsinline are required for autoplay (playsinline for iOS) -->
+		<video src="heroimages/hero4.mp4" autoplay muted loop playsinline aria-label="Preview of work"></video>
 	</div>
 	<section class="hero-caption">
+		<!-- caption for hero1.jpg, shown before hero-slideshow.js runs; other captions live in that file -->
 		<p>Packaging design for Jackfir, an organic men’s grooming brand</p>
 	</section>
 
@@ -30,10 +38,13 @@
 			<li><a href="work/" data-text="My Work">My Work</a></li>
 			<li><a href="ux/" data-text="UX Design">UX Design</a></li>
 			<li><a href="resume/Michael French_Resume26.pdf" target="_blank" data-text="Resume">Resume</a></li>
-			<!-- ADD COPY TO CLIPBOARD INTERACTION HERE -->
-			<li><a href="mailto:michael@michaelfrench.co" target="_blank" data-text="Contact">Contact</a></li>
+			<!-- copies email to clipboard (copy-email.js); mailto is the fallback -->
+			<li><a href="mailto:michael@michaelfrench.co" data-copy-email="michael@michaelfrench.co" data-text="Contact">Contact</a></li>
 		</ul>
 	</nav>
+
+	<!-- "email copied" notification, shown by copy-email.js -->
+	<div class="toast" role="status" aria-live="polite"></div>
 
 	<!-- screen-blends with the hero -->
 	<header class="header-blend">

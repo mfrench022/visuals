@@ -8,7 +8,8 @@
 	--bar-inset-sm: calc(var(--bar-inset) / 2);
 
 	/* color */
-	--black: #232323;
+	--black: #000000af;
+	--white: #dddddd;
 	--white-transparent: #CACACA;
 	--shade: 26, 26, 26;
 
@@ -24,16 +25,17 @@
 
 	/* effects */
 	/* --text-shadow1: 0px 0px 0.2rem #00000088; */
-	--text-shadow2: 0px 0px 0.8rem #0b0b0b95;
+	--nav-shadow: 0px 0px 0.5rem #ebebeb84;
 	--text-shadow3: 0px 0px 0.5rem #020202;
 	--border-radius: 3rem;
-	--blur: 0.5rem;
+	--blur: 0.3rem;
 	--transition: 0.3s ease-in-out;
 
 	/* layers */
 	--z-header-background: 1;
 	--z-header: 2;
 	--z-bar: 10;
+	--z-toast: 11;
 
 	/* gradients */
 	--focus-gradient-left: linear-gradient(270deg, rgba(var(--shade), 0.7) 0%, rgba(var(--shade), 0.35) 70%, rgba(var(--shade), 0) 100%);
@@ -47,7 +49,6 @@ html {
 body {
 	font-family: var(--font-family);
 	font-weight: var(--font-weight1);
-	color: var(--black);
 }
 
 .hero {
@@ -55,32 +56,56 @@ body {
 	height: 100vh;
 	position: fixed;
 
-	img {
+	/* slides stack on top of each other; hero-slideshow.js moves .is-active */
+	img, video {
+		position: absolute;
+		inset: 0;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		object-position: bottom left;
+		opacity: 0;
+		transition: opacity 1.2s ease-in-out;
+	}
+
+	.is-active {
+		opacity: 1;
 	}
 }
 
-/* shared frosted bar: nav on top, caption on bottom */
-nav, .hero-caption {
+.hero-caption p {
+	transition: opacity var(--transition);
+}
+
+.hero-caption p.is-fading {
+	opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.hero img, .hero video, .hero-caption p {
+		transition: none;
+	}
+}
+
+/* shared frosted bar: nav on top, caption on bottom, toast under nav */
+nav, .hero-caption, .toast {
 	position: fixed;
 	z-index: var(--z-bar);
 	max-width: calc(100vw - (2 * var(--bar-inset)));
 	padding-inline: var(--padding);
 	padding-block: calc(var(--padding) / 5);
-	background-color: var(--white-transparent);
+	background-color: var(--black);
 	backdrop-filter: blur(var(--blur));
 	corner-shape: squircle;
-	box-shadow: var(--text-shadow2);
+	box-shadow: var(--nav-shadow);
 	/* mix-blend-mode: screen; */
 }
 
 /* shared bar text */
-nav a, .hero-caption p {
+nav a, .hero-caption p, .toast {
 	font-size: var(--font-size1);
 	line-height: var(--lineheight1);
+	color: var(--white);
 }
 
 .hero-caption {
@@ -124,6 +149,32 @@ nav {
 		&:hover, &.active {
 			font-weight: var(--font-weight2);
 		}
+	}
+}
+
+/* "email copied" notification — tucks under the nav, slides down when shown */
+.toast {
+	z-index: var(--z-toast);
+	top: calc(var(--nav-bottom, 0px) + var(--bar-inset-sm));
+	left: 50%;
+	transform: translate(-50%, -0.5rem);
+	border-radius: var(--border-radius);
+	white-space: nowrap;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+
+	&.is-visible {
+		opacity: 1;
+		visibility: visible;
+		transform: translate(-50%, 0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.toast, .toast.is-visible {
+		transform: translateX(-50%);
 	}
 }
 
@@ -222,7 +273,7 @@ header {
 		}
 	}
 
-	.hero img {
+	.hero img, .hero video {
 		object-position: 10%;
 	}
 
@@ -252,7 +303,7 @@ header {
 }
 
 @media (height < 510px) {
-	.hero img {
+	.hero img, .hero video {
 		object-position: left 70%;
 	}
 }
