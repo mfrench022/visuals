@@ -54,6 +54,8 @@ body {
 .hero {
 	width: 100vw;
 	height: 100vh;
+	/* dvh tracks Safari's toolbars; vh is the fallback */
+	height: 100dvh;
 	position: fixed;
 
 	/* slides stack on top of each other; hero-slideshow.js moves .is-active */
@@ -274,7 +276,7 @@ header {
 	}
 
 	.hero img, .hero video {
-		object-position: 10%;
+		object-position: 10% bottom;
 	}
 
 	header {
