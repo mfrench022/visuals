@@ -287,7 +287,7 @@ header {
 @media (width < 450px) {
 	nav, .hero-caption {
 		--gap: var(--bar-inset-sm);
-		padding-inline: calc(var(--bar-inset) * 1.25);
+		padding-inline: calc(var(--bar-inset) * 1);
 	}
 
 	nav ul {
