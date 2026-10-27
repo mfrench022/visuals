@@ -243,6 +243,11 @@ header {
 		width: fit-content;
 		margin-inline: auto;
 		border-top-left-radius: var(--border-radius);
+		justify-content: center;
+
+		p {
+			text-align: center;
+		}
 	}
 }
 
@@ -267,14 +272,6 @@ header {
 		column-gap: var(--bar-inset);
 	}
 
-	.hero-caption {
-		justify-content: center;
-
-		p {
-			text-align: center;
-		}
-	}
-
 	.hero img, .hero video {
 		object-position: 10% bottom;
 	}
@@ -285,9 +282,9 @@ header {
 }
 
 @media (width < 450px) {
-	nav, .hero-caption {
+	nav {
 		--gap: var(--bar-inset-sm);
-		padding-inline: calc(var(--bar-inset) * 1);
+		padding-inline: calc(var(--bar-inset) * 0.3);
 	}
 
 	nav ul {
