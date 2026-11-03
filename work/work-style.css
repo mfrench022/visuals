@@ -25,6 +25,11 @@
 
 }
 
+
+
+
+
+/* FOR COMING SOON NOTE */
 .coming-soon {
     display: flex;
     justify-content: center;
@@ -34,4 +39,8 @@
     background-color: white;
     z-index: 9000;
     position: fixed;
+}
+
+nav {
+    z-index: 10000;
 }
